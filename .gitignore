@@ -9,5 +9,5 @@ face_data/
 *.wav
 *.jpg
 *.png
-!docs/**/*.png
+!docs/photos/**
 greeting.txt

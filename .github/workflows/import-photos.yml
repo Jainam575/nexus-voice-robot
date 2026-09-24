@@ -1,0 +1,48 @@
+name: Import photos
+
+# One-time helper: adds the resized build photos to docs/photos.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and resize photos
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p docs/photos /tmp/photos
+          gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445564 > /tmp/photos/display-jumper-wiring.jpg
+          gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445566 > /tmp/photos/display-header-closeup.jpg
+          gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445559 > /tmp/photos/robot-gpio-wiring.jpg
+          python3 -m pip install --quiet pillow
+          python3 - <<'EOF'
+          from PIL import Image
+          import os
+          for name in ["display-jumper-wiring", "display-header-closeup", "robot-gpio-wiring"]:
+              im = Image.open(f"/tmp/photos/{name}.jpg").convert("RGB")
+              w, h = im.size
+              if w > 1400:
+                  im = im.resize((1400, int(h * 1400 / w)), Image.LANCZOS)
+              im.save(f"docs/photos/{name}.jpg", "JPEG", quality=85, optimize=True)
+              print(name, os.path.getsize(f"docs/photos/{name}.jpg") // 1024, "KB")
+          EOF
+
+      - name: Commit photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f docs/photos
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "Add build photos"
+            git push
+          fi
