@@ -1,0 +1,13 @@
+# Core (install with pip in a venv; on 32-bit Pi use --only-binary for opencv)
+requests>=2.28
+openai>=1.30          # cloud vision client (OpenAI-compatible API)
+pygame>=2.0           # face display
+
+# On the Raspberry Pi itself (system or venv):
+#   picamera2          # camera (Raspberry Pi OS package python3-picamera2)
+#   tflite_runtime     # offline object detection (optional)
+#   RPi.GPIO           # motors (usually preinstalled)
+
+# Pinned for 32-bit Raspberry Pi OS (piwheels builds exist for these):
+#   opencv-contrib-python-headless==4.10.0.84
+#   numpy<2

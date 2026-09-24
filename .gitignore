@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+ai_env/
+# robot runtime artifacts
+nexus_memory.json
+face_data/
+*.wav
+*.jpg
+*.png
+!docs/**/*.png
+greeting.txt
