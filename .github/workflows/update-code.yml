@@ -63,7 +63,7 @@ jobs:
           gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445564 > /tmp/photos/display-jumper-wiring.jpg
           gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445566 > /tmp/photos/display-header-closeup.jpg
           gh api -H "Accept: application/octet-stream" /repos/${{ github.repository }}/releases/assets/586445559 > /tmp/photos/robot-gpio-wiring.jpg
-          python3 -m pip install --quiet --disable-pip-version-warning pillow
+          python3 -m pip install --quiet pillow
           python3 - <<'EOF'
           from PIL import Image
           import os
