@@ -1,4 +1,0 @@
-The robot speaks a Gujarati welcome at every boot. To change it, create
-`greeting.txt` next to the script with any
-text — one line per spoken sentence. To disable:
-`export NEXUS_STARTUP_GREETING=\"\"`.

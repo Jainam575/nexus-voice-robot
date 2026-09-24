@@ -1,8 +1,8 @@
 # 🤖 Nexus — Voice-Controlled AI Robot
 
-**Nexus** is a fully voice-controlled AI robot built from scratch on a Raspberry Pi by **Jainam Soni and his team** at **Shree Muktjivan Vidyalaya, Isanpur (Ahmedabad)**, showcased at **Science Spark 2026**.
+**Nexus** is a fully voice-controlled AI robot built from scratch on a Raspberry Pi by **Jainam Soni and his team** at **Shree Muktjivan Vidyalaya, Isanpur (Ahmedabad)**.
 
-It listens for a wake word, understands natural-language commands in **English and Gujarati**, sees and describes the world through a camera, recognises people's faces, navigates to objects, moves around on four wheels with collision-aware safety logic, shows a live animated face with moods — and even opens the event with a Gujarati welcome speech.
+It listens for a wake word, understands natural-language commands in **English and Gujarati**, sees and describes the world through a camera, recognises people's faces, navigates to objects, moves around on four wheels with collision-aware safety logic, shows a live animated face with moods — and greets you in Gujarati the moment it boots.
 
 ---
 
@@ -10,15 +10,15 @@ It listens for a wake word, understands natural-language commands in **English a
 
 | Area | What it does |
 |---|---|
-| 🎤 **Voice interaction** | Wake word ("hey Nexus" — fuzzy-matched against mishearings like "hey nex", "hey macus"), continuous listening, natural conversation with an LLM |
+| 🎤 **Voice interaction** | Wake word (\"hey Nexus\" — fuzzy-matched against mishearings like \"hey nex\", \"hey macus\"), continuous listening, natural conversation with an LLM |
 | 🗣️ **Bilingual** | Commands in English (`en-IN`), replies in **Gujarati** (or any language — one env var) |
-| 👁️ **Vision** | Cloud vision via a multimodal LLM ("what do you see?") **plus** fast offline object detection (TFLite SSD-MobileNet, 80 classes) |
-| 🧭 **Object navigation** | "Find the bottle" — vision-guided driving toward an object, with a cloud-VLM fallback when the offline detector can't see the target, plus obstacle checks before every forward move |
-| 👤 **Face recognition** | Learns faces ("remember my face as Snehal"), recognises them later ("who am I?") using Haar cascade detection + LBPH, with multi-cascade fallbacks, size-normalised crops, and privacy-first storage (0600 permissions, per-person folders) |
+| 👁️ **Vision** | Cloud vision via a multimodal LLM (\"what do you see?\") **plus** fast offline object detection (TFLite SSD-MobileNet, 80 classes) |
+| 🧭 **Object navigation** | \"Find the bottle\" — vision-guided driving toward an object, with a cloud-VLM fallback when the offline detector can't see the target, plus obstacle checks before every forward move |
+| 👤 **Face recognition** | Learns faces (\"remember my face as Snehal\"), recognises them later (\"who am I?\") using Haar cascade detection + LBPH, with multi-cascade fallbacks, size-normalised crops, and privacy-first storage (0600 permissions, per-person folders) |
 | 🌦️ **Weather & news** | Live weather via Open-Meteo with IP geolocation fallback; news headlines via Google News RSS |
-| 😊 **Animated face** | Pygame face on a 3.5" touchscreen with moods (happy/sad/neutral…), camera preview mode, and boot-time expressions |
+| 😊 **Animated face** | Pygame face on a 3.5\" touchscreen with moods (happy/sad/neutral…), camera preview mode, and boot-time expressions |
 | 🚗 **4WD movement** | Two L298N drivers, four DC motors, skid steering, blocking command API with watchdog + collision interrupt |
-| 🛑 **Safety** | Voice safety stop ("STOP!"), collision sensor integration, safety listener thread, demo-mode confirmation gate, motor self-test |
+| 🛑 **Safety** | Voice safety stop (\"STOP!\"), collision sensor integration, safety listener thread, demo-mode confirmation gate, motor self-test |
 | 🎮 **Games** | Rock–paper–scissors, trivia, and more, played entirely by voice |
 | 😴 **Sleep / wake** | Falls asleep after ~3 minutes of silence, wakes on hearing its name |
 | 🧪 **302 automated tests** | Full regression suite for every subsystem |
@@ -59,11 +59,22 @@ The full module map is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 | Camera | Raspberry Pi Camera Module (picamera2) |
 | Mic | USB microphone (`plughw:2,0`) |
 | Sound | Speaker via `aplay` (device configurable, e.g. `TTS_DEVICE=default`) |
-| Face | 3.5" SPI touchscreen (XPT2046) |
+| Face | 3.5\" SPI touchscreen (XPT2046) |
 | Drive | 2× L298N motor drivers, 4× DC gear motors (4WD, skid steering) |
 | Safety | Optional ultrasonic/ToF collision sensor on GPIO 20/21 |
 
+## 📷 The build
+
+| | |
+|---|---|
+| ![Display wiring](docs/photos/display-jumper-wiring.jpg) | ![Display header](docs/photos/display-header-closeup.jpg) |
+| *3.5\" display jumpered to the GPIO header — only the pins it needs* | *Display header with the eight necessary wires* |
+
+![Robot wiring](docs/photos/robot-gpio-wiring.jpg)
+
 ## ⚡ Quick start
+
+**Bench-testing a brand-new Pi? Start with [docs/RASPBERRY_PI_SETUP.md](docs/RASPBERRY_PI_SETUP.md)** — flashing the OS, headless SSH, camera, display driver, everything from a blank SD card.
 
 ```bash
 git clone https://github.com/Jainam575/nexus-voice-robot.git
@@ -91,19 +102,19 @@ python run_nexus.py            # package form (23 modules)
 python nexus_all_in_one.py     # single-file build (identical behaviour)
 ```
 
-The robot speaks its Gujarati startup greeting, then *"I am Nexus, an AI robot created from scratch by Jainam Soni and his team…"* and starts listening.
+The robot speaks its Gujarati startup greeting, then *\"I am Nexus, an AI robot created from scratch by Jainam Soni and his team…\"* and starts listening.
 
 ## 🗣️ Voice commands
 
-- **"Hey Nexus"** — wake it from sleep (fuzzy-matched)
-- **"move forward / backward / left / right"**, **"spin"**, **"stop"** — movement (durations and step counts supported: *"move forward for 3 seconds"*)
-- **"find the bottle"** — vision-guided navigation to an object
-- **"what do you see?"** (or **"શું દેખાય છે?"**) — cloud vision scene description
-- **"what's the weather"**, **"news"**
-- **"remember my face as <name>"**, **"who am I?"**, **"forget <name>"**
-- **"demo"** → **"confirm"** — guided demo mode (weather + news + moves)
-- **"play rock paper scissors"**, **"play trivia"** — games
-- **"STOP!"** — immediate motor safety stop
+- **\"Hey Nexus\"** — wake it from sleep (fuzzy-matched)
+- **\"move forward / backward / left / right\"**, **\"spin\"**, **\"stop\"** — movement (durations and step counts supported: *\"move forward for 3 seconds\"*)
+- **\"find the bottle\"** — vision-guided navigation to an object
+- **\"what do you see?\"** (or **\"શું દેખાય છે?\"**) — cloud vision scene description
+- **\"what's the weather\"**, **\"news\"**
+- **\"remember my face as <name>\"**, **\"who am I?\"**, **\"forget <name>\"**
+- **\"demo\"** → **\"confirm\"** — guided demo mode (weather + news + moves)
+- **\"play rock paper scissors\"**, **\"play trivia\"** — games
+- **\"STOP!\"** — immediate motor safety stop
 - Anything else goes to the LLM for conversation
 
 Full list: [`docs/COMMANDS.md`](docs/COMMANDS.md)
@@ -119,7 +130,7 @@ Full list: [`docs/COMMANDS.md`](docs/COMMANDS.md)
 | 16 | 36 | Motor B forward |
 | **19** | **35** | Motor B backward *(pin 37 / GPIO 26 is dead on our Pi — long story, see [docs/WIRING.md](docs/WIRING.md))* |
 | 20 / 21 | 38 / 40 | Collision sensor trig / echo |
-| — | — | 3.5" display uses GPIO 17, 24, 25, 27, 8, 9, 10, 11, 7 |
+| — | — | 3.5\" display jumpered on GPIO 8, 10, 11, 17, 25, 27 + 3.3 V + GND (see [docs/WIRING.md](docs/WIRING.md)) |
 
 Every motor pin is overridable by env var (`NEXUS_MOTOR_B_IN4=19` etc.), and `NEXUS_MOTOR_SWAP_AB=1` swaps the two channels in software — so wiring mistakes are a config change, not a rebuild. Details: [`docs/WIRING.md`](docs/WIRING.md)
 
@@ -164,8 +175,9 @@ All settings are env vars — no code edits needed. Highlights (full list in [`d
 │   ├── enable_hold.py     #   enables motors for the 3.3V wire test
 │   ├── motor2.py          #   original interactive f/b/l/r test
 │   └── motor8.py          #   same, with the corrected GPIO 19 pin
-└── docs/                  # wiring, setup, commands, troubleshooting,
-                           # architecture, and the full project journey
+└── docs/                  # Raspberry Pi setup (from blank SD card), wiring,
+                           # commands, troubleshooting, architecture, photos,
+                           # and the full project journey
 ```
 
 ## 🧪 Tests
@@ -184,7 +196,7 @@ We hit (and fixed) a lot during this build — API credit errors, an OpenCV 5 wh
 
 ## 🏫 Credits
 
-Built by **Jainam Soni and team**, Shree Muktjivan Vidyalaya, Isanpur — for **Science Spark 2026**. 🙏 જય સ્વામિનારાયણ.
+Built by **Jainam Soni and team**, Shree Muktjivan Vidyalaya, Isanpur. 🙏 જય સ્વામિનારાયણ.
 
 Powered by [Sarvam AI](https://sarvam.ai) (speech + chat), OpenRouter / Meta Llama 4 Scout (vision), OpenCV, TFLite, and pygame.
 

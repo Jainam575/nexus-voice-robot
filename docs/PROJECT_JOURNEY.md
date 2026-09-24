@@ -9,7 +9,7 @@ hit. Each of these is documented as a fix in
 The robot started as one large script, developed on the Pi over SSH.
 Voice in, voice out, motor movement, a pygame face — it worked, and
 that's what mattered. But every change meant scrolling through thousands
-of lines, and every "quick test" was a full robot boot.
+of lines, and every \"quick test\" was a full robot boot.
 
 ## Phase 2 — Refactoring into a package + tests
 
@@ -26,7 +26,7 @@ regression test.
   fast local answers.
 - A cloud vision path (multimodal LLM over an OpenAI-compatible API) for
   descriptions and questions.
-- "Find the bottle" navigation combining both: locate → turn → approach
+- \"Find the bottle\" navigation combining both: locate → turn → approach
   with obstacle checks → announce arrival.
 
 ## Phase 4 — The bring-up war stories
@@ -60,8 +60,8 @@ Things that actually happened, roughly in order:
    code gained env-var pin remapping (`NEXUS_MOTOR_B_IN4=19`) plus a
    software channel-swap flag (`NEXUS_MOTOR_SWAP_AB`) so no future
    wiring surprise needs a code rebuild.
-8. **The wake word** — "hey Nexus" transcribed as "hey macus", "hey
-   nex", "lexus". Fixed with fuzzy matching (edit distance ≤ 3).
+8. **The wake word** — \"hey Nexus\" transcribed as \"hey macus\", \"hey
+   nex\", \"lexus\". Fixed with fuzzy matching (edit distance ≤ 3).
 
 ## Phase 5 — Single-file deploy
 
@@ -69,13 +69,13 @@ For the Pi, `scripts/build_combined.py` generates
 `nexus_all_in_one.py` — one file, 6,400+ lines, same 302 tests pass
 against it. No venv package juggling on the robot itself.
 
-## Phase 6 — Science Spark 2026
+## Phase 6 — Event mode
 
 - Replies switched to Gujarati (`NEXUS_REPLY_LANGUAGE=Gujarati`); TTS
   auto-detects the script of each spoken line.
-- A Gujarati startup welcome was added for the event — and made
+- A Gujarati startup welcome was added — and made
   editable at runtime via `greeting.txt` or `NEXUS_STARTUP_GREETING`,
-  because event scripts change the night before.
+  because the text tends to change the night before a show.
 
 ## What we'd do differently
 

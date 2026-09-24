@@ -2,6 +2,8 @@
 
 Tested on: Raspberry Pi 4, 32-bit Raspberry Pi OS (Bookworm), Python 3.11.
 
+Starting from a blank SD card? Do [RASPBERRY_PI_SETUP.md](RASPBERRY_PI_SETUP.md) first — this guide picks up from a Pi that boots, has SSH working, and has its camera + display + audio configured.
+
 ## 1. System packages
 
 ```bash
@@ -116,8 +118,8 @@ Then `source ~/.bashrc` (or open a new SSH session).
 | `NEXUS_FACE_STORAGE` | `1` | Allow storing face data |
 | `FACE_DATA_RETENTION` | `0` | Max samples kept per person |
 | `NEXUS_CAMERA_SWAP` | `0` | Force R/B channel swap (driver quirks) |
-| `NEXUS_DEMO_CONFIRMATION` | `1` | Require "confirm" for demo mode |
-| `WEATHER_LOCATION` | auto (IP) | e.g. `"Ahmedabad"` |
+| `NEXUS_DEMO_CONFIRMATION` | `1` | Require \"confirm\" for demo mode |
+| `WEATHER_LOCATION` | auto (IP) | e.g. `\"Ahmedabad\"` |
 | `NEWS_TOPIC` | general | News topic filter |
 | `FACE_WIDTH` / `FACE_HEIGHT` / `FACE_FULLSCREEN` | 480/320/1 | Face display geometry |
 
@@ -145,7 +147,7 @@ Set `MIC_DEVICE` / `TTS_DEVICE` to match your hardware.
 
 ## 8. Startup greeting
 
-The robot speaks a Gujarati welcome (written for Science Spark 2026) at
-every boot. To change it, create `greeting.txt` next to the script with any
-text — one line per spoken sentence. To disable:
-`export NEXUS_STARTUP_GREETING=""`.
+The robot speaks a Gujarati welcome at every boot. To change it, create
+`greeting.txt` next to the script with any text — one line per spoken
+sentence. To disable:
+`export NEXUS_STARTUP_GREETING=\"\"`.
