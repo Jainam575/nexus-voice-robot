@@ -25,8 +25,9 @@ import io
 import os
 import tokenize
 
-SRC = "/workspace/notes/nexus_package"
-OUT = "/scratch/work/nexus_all_in_one.py"
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.environ.get("NEXUS_BUILD_SRC", _ROOT)
+OUT = os.environ.get("NEXUS_BUILD_OUT", os.path.join(_ROOT, "nexus_all_in_one.py"))
 
 # Dependency order: singletons defined before consumers run module-level code.
 MODULES = [

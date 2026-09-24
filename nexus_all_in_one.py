@@ -5885,16 +5885,14 @@ def _face_callback(state):
 
 
 # ==================== MAIN LOOP ====================
-# ---- Startup greeting (Science Spark 2026 welcome; 2026-09) ----
+# ---- Startup greeting (spoken welcome; 2026-09) ----
 # Spoken aloud at every boot. To change it later, either put new text in a
 # file called greeting.txt next to the robot script, or set the env var
 # NEXUS_STARTUP_GREETING (empty string disables the greeting entirely).
 _DEFAULT_STARTUP_GREETING = """જય સ્વામિનારાયણ
-શ્રી મુક્તજીવન વિદ્યાલય
-ઈસનપુર તરફથી આપ સૌનું ભાવ ભર્યું સ્વાગત છે.
-આજના આ વિશેષ કાર્યક્રમ Science Spark 2026 બાળકોમાં રહેલ એક જિજ્ઞાસાની ચિંગારી પ્રગટાવવાનું કામ કરશે.
-બાળકોમાં રહેલ આંતરિક શક્તિને ઉજાગર કરવા શ્રી મુક્તજીવન ગ્રુપ ઓફ એડયુકેશન હંમેશા તત્પર છે.
-આવો આજે મુક્ત જિનિયસ ની જિજ્ઞાસાની એક ઝલક જોઈએ."""
+હું છું નેક્સસ — એક અવાજ વડે ચાલતો, જાતે બનાવેલો એઆઈ રોબો.
+આપ સૌનું હૃદયપૂર્વક સ્વાગત છે.
+ચાલો, આજે નવું કંઈક શીખીએ અને જોઈએ."""
 
 
 def _startup_greeting_text():
